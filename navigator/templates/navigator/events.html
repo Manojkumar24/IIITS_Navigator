@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Navigator</title>
+    </head>
+    <body>
+        {% for event in events %}
+            <p>{{ event.name }}</p>
+            <p>{{ event.description }}</p>
+            <p>{{ event.location }}</p>
+            <p>{{ event.from_date }}</p>
+            <p>{{ event.to_date }}</p>
+            {% if event.room %}
+            <p>{{ event.room }}</p>
+            {% endif %}
+            <br>
+        {% endfor %}
+    </body>
+</html>

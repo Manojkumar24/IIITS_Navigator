@@ -3,12 +3,13 @@ from django.db import models
 # Create your models here.
 
 room_types = (('ClassRoom', 'ClassRoom'), ('ComputerLab', 'ComputerLab'), ('ECELab', 'ECELab'), ('Library', 'Library'),
-              ('StaffRoom', 'StaffRoom'), ('WorkSpace', 'WorkSpace'))
+              ('StaffRoom', 'StaffRoom'), ('WorkSpace', 'WorkSpace'), ('AcadamicOffice', 'AcadamicOffice'),
+              ('RegistarOffice', 'RegistarOffice'))
 
 
 class Rooms(models.Model):
     number = models.PositiveIntegerField(null=False)
-    floor = models.PositiveIntegerField(False)
+    floor = models.PositiveIntegerField()
     block = models.PositiveIntegerField(default=1)
     type = models.CharField(choices=room_types, max_length=15)
 
@@ -17,8 +18,9 @@ class Rooms(models.Model):
 
 
 event_locations = (('Basement', 'Basement'), ('AcadamicBlock', 'AcadamicBlock'), ('BoysHostel-1', 'BoysHostel-1'),
-                   ('BoysHostel-2', 'BoysHostel-2'), ('GirlsHostel-1', 'GirlsHostel-1'),
-                   ('BasketballCourt', 'BasketballCourt'), ('CricketGround', 'CricketGround'))
+                   ('BoysHostel-2', 'BoysHostel-2'), ('GirlsHostel', 'GirlsHostel'),
+                   ('Basketball', 'Basketball'), ('CricketGround', 'CricketGround'),
+                   ('Football', 'Football'), ('Canteen', 'Canteen'))
 
 
 class Events(models.Model):
@@ -27,6 +29,7 @@ class Events(models.Model):
     from_date = models.DateTimeField()
     to_date = models.DateTimeField()
     location = models.CharField(choices=event_locations, max_length=20)
+    room = models.ForeignKey(Rooms, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
